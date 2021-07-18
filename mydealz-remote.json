@@ -1,0 +1,174 @@
+{
+  "Name": "mydealz-remote",
+  "CreationDate": "2021-7-18",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "store // ",
+      "Value": "oldComment",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "while_v2 // true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "store // nodisplay",
+      "Value": "!replayspeed",
+      "Description": ""
+    },
+    {
+      "Command": "open",
+      "Target": "https://www.mydealz.de/diskussion/kunden-werben-kunden-regeln-1764080#thread-comments",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "pause // 500",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "sourceExtract // <body*</body>",
+      "Value": "src",
+      "Description": ""
+    },
+    {
+      "Command": "sourceExtract",
+      "Target": "<li class=\\\"commentList-item \\\"*</li>",
+      "Value": "mem",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return ${mem}.substr(45,8) ",
+      "Value": "newComment",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "if_v2 // ${newComment} != ${oldComment} && ${mem} != \"#nomatchfound\"",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${newComment}",
+      "Value": "oldComment",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return ${mem}.match(/wrap-break[\\\"<>del]+[a-zA-Z0-9-_.äüö <>!?ß&,;.=\"()+*@€]+/g);",
+      "Value": "commentArr",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "if_v2 // ${commentArr} != null",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return encodeURIComponent((${commentArr[0]}.substr(13,${commentArr[0]}.length-3)).replace(/&amp;/g, '&'));",
+      "Value": "commentURL",
+      "Description": ""
+    },
+    {
+      "Command": "open",
+      "Target": "https://api.telegram.org/bot1807001289:AAERhEApzXwMFBnqth7i4Rvd2H37wh9xAEA/sendMessage?chat_id=969901419&text=${commentURL}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${mem}.includes (\"N26\") || ${mem}.includes (\"n26\") == true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${mem}.match(/profile\\/[a-zA-Z0-9-_.]+/g);",
+      "Value": "prof",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${prof[0]}.substr(8);",
+      "Value": "profile",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "${profile}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "open",
+      "Target": "https://www.mydealz.de/profile/messages/",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"main\"]/div[2]/div/div/div/div/div[2]/button/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=sendMessageModalForm-userName",
+      "Value": "${profile}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"sendMessage_form\"]/ul/li[2]/div/div/div[2]/span/button/span/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=/html/body/section[2]/div/div[2]/ul/li[2]/button/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"sendMessage_form\"]/div/div/div[2]/button",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "end // ",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "end // ",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "end // ",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
